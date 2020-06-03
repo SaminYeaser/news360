@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news360/helper/data.dart';
+import 'package:news360/model/Category_model.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -6,6 +8,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<CategoryModel> categories = new List<CategoryModel>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    categories = getCategory();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
