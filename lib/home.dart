@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:news360/article_view.dart';
+import 'package:news360/category.dart';
 import 'package:news360/helper/data.dart';
 import 'package:news360/helper/news.dart';
 import 'package:news360/model/Category_model.dart';
@@ -98,14 +99,16 @@ class _HomeState extends State<Home> {
   }
 }
 class CategoryTile extends StatelessWidget {
-  final  imageURL, categoryName;
+  final String imageURL, categoryName;
   CategoryTile({this.imageURL, this.categoryName});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
         Navigator.push(context, MaterialPageRoute(
-          builder: (context)=>
+          builder: (context)=> CategoryNews(
+            category: categoryName.toLowerCase(),
+          )
         ));
       },
       child: Container(

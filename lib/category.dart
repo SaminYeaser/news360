@@ -25,7 +25,10 @@ class _CategoryNewState extends State<CategoryNews> {
     CategoryNewsClass newsCategoryClass= CategoryNewsClass();
     await newsCategoryClass.getNews(widget.category);
     articles = newsCategoryClass.news;
-    _loading = false;
+    setState(() {
+      _loading = false;
+    });
+
   }
 
   @override
@@ -54,11 +57,11 @@ class _CategoryNewState extends State<CategoryNews> {
         centerTitle: true,
         elevation: 0.0,
       ),
-      body: _loading?Center(
+      body: _loading ? Center(
         child: Container(
           child: CircularProgressIndicator()
         ),
-      ):SingleChildScrollView(
+      ) : SingleChildScrollView(
         child: Container(
           child: Column(
             children: <Widget>[
