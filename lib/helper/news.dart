@@ -11,15 +11,14 @@ class News {
     var response = await http.get(url);
     var jsonData = json.decode(response.body);
     if(jsonData['status'] == 'ok'){
-      jsonData['articles'].foreach((element){
-        if(element['urlToImage']!= null && element['description']!=null){
+      jsonData['articles'].forEach((element){
+        if(element['urlToImage'] != null && element['description'] != null){
           ArticleModel articleModel = ArticleModel(
             title: element['title'],
             author: element['author'],
             description: element['description'],
             url: element['url'],
             urlToImage: element['urlToImage'],
-            publishedAt: element['publishedAt'],
             content: element['context']
           );
           news.add(articleModel);

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ArticlView extends StatefulWidget {
+class ArticleView extends StatefulWidget {
   @override
-  _ArticlViewState createState() => _ArticlViewState();
+  _ArticleViewState createState() => _ArticleViewState();
 }
 
-class _ArticlViewState extends State<ArticlView> {
+class _ArticleViewState extends State<ArticleView> {
   @override
   Widget build(BuildContext context) {
     return Container();
