@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news360/article_view.dart';
 import 'package:news360/helper/data.dart';
 import 'package:news360/helper/news.dart';
 import 'package:news360/model/Category_model.dart';
@@ -85,6 +86,7 @@ class _HomeState extends State<Home> {
                       imageURL: articles[index].urlToImage,
                       title: articles[index].title,
                       description: articles[index].description,
+                      url: articles[index].url,
                     );
                     }),
               )
@@ -138,24 +140,33 @@ class CategoryTile extends StatelessWidget {
   }
 }
 class BlogTile extends StatelessWidget {
-  final String imageURL, title, description;
-BlogTile({@required this.imageURL,@required this.title,@required this.description});
+  final String imageURL, title, description,url;
+BlogTile({@required this.imageURL,@required this.title,@required this.description, @required this.url});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(bottom:10 ),
-      child: Column(
-        children: <Widget>[
-          ClipRRect(child: Image.network(imageURL),
-          borderRadius: BorderRadius.circular(15),),
-          SizedBox(height: 5,),
-          Text(title, style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold
-          ),),
-          SizedBox(height: 8,),
-          Text(description,style: TextStyle(color: Colors.black45),)
-        ],
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context)=> ArticleView(
+          blogURL: url,
+          )
+        ));
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom:10 ),
+        child: Column(
+          children: <Widget>[
+            ClipRRect(child: Image.network(imageURL),
+            borderRadius: BorderRadius.circular(15),),
+            SizedBox(height: 5,),
+            Text(title, style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold
+            ),),
+            SizedBox(height: 8,),
+            Text(description,style: TextStyle(color: Colors.black45),)
+          ],
+        ),
       ),
     );
   }
