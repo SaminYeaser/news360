@@ -13,7 +13,7 @@ class _ArticleViewState extends State<ArticleView> {
   Widget build(BuildContext context) {
     return Container(
       child: WebView(
-
+      initialUrl: widget.blogURL,
       ),
     );
   }
