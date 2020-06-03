@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news360/article_view.dart';
 import 'package:news360/helper/news.dart';
 import 'package:news360/model/article_model.dart';
 
@@ -53,25 +54,63 @@ class _CategoryNewState extends State<CategoryNews> {
         centerTitle: true,
         elevation: 0.0,
       ),
-      body: Container(
+      body: _loading?Center(
+        child: Container(
+          child: CircularProgressIndicator()
+        ),
+      ):SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.only(top: 16),
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    itemCount: articles.length,
+                    itemBuilder: (context, index){
+                      return BlogTile(
+                        imageURL: articles[index].urlToImage,
+                        title: articles[index].title,
+                        description: articles[index].description,
+                        url: articles[index].url,
+                      );
+                    }),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+class BlogTile extends StatelessWidget {
+  final String imageURL, title, description,url;
+  BlogTile({@required this.imageURL,@required this.title,@required this.description, @required this.url});
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(
+            builder: (context)=> ArticleView(
+              blogURL: url,
+            )
+        ));
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom:10 ),
         child: Column(
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(top: 16),
-              child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  physics: ClampingScrollPhysics(),
-                  itemCount: articles.length,
-                  itemBuilder: (context, index){
-                    return BlogTile(
-                      imageURL: articles[index].urlToImage,
-                      title: articles[index].title,
-                      description: articles[index].description,
-                      url: articles[index].url,
-                    );
-                  }),
-            )
+            ClipRRect(child: Image.network(imageURL),
+              borderRadius: BorderRadius.circular(15),),
+            SizedBox(height: 5,),
+            Text(title, style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold
+            ),),
+            SizedBox(height: 8,),
+            Text(description,style: TextStyle(color: Colors.black45),)
           ],
         ),
       ),
